@@ -36,7 +36,7 @@ module.exports = {
 
     // Register the order in the database
     const order = await strapi.services.order.create({
-      user: ctx.state.user.id,
+      user: ctx.state.user.id.toString(),
       charge_id: charge.id,
       amount: stripeAmount,
       address,
