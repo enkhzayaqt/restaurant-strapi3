@@ -24,6 +24,7 @@ module.exports = {
     const stripeAmount = Math.floor(amount * 100);
     // charge on stripe
     console.log(':::::::::::1 ', ctx.state.user);
+    strapi.log.debug(':::::::::::1 ', ctx.state.user);
     const charge = await stripe.charges.create({
       // Transform cents to dollars.
       amount: stripeAmount,
@@ -31,7 +32,7 @@ module.exports = {
       description: `Order ${new Date()} by ${ctx.state.user._id}`,
       source: token,
     });
-    console.log(':::::::::::2 ', ctx.state.user);
+    strapi.log.debug(':::::::::::2 ', ctx.state.user);
 
     // Register the order in the database
     const order = await strapi.services.order.create({
@@ -44,7 +45,7 @@ module.exports = {
       state,
     });
 
-    console.log(':::::::::::3 ', ctx.state.user);
+    strapi.log.debug(':::::::::::3 ', ctx.state.user);
 
 
     return order;
